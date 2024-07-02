@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Chart;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,36 +16,14 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('login', [SessionController::class, 'index']);
+Route::post('login', [SessionController::class, 'login']);
+Route::get('logout', [SessionController::class, 'logout']);
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-// Route::get('/dashboard', function () {
-//     return view('admin/dashboard/index');
-// });
-// Route::get('dasboard/chart', [DashboardController::class, 'index']);
 Route::resource('dashboard', DashboardController::class);
-            
 
 Route::get('/jadwalPakan', function () {
     return view('admin/jadwalPakan/index');
-});
-
-Route::get('/createJadwalPakan', function () {
-    return view('admin/jadwalPakan/create');
-});
-
-Route::get('/editJadwalPakan', function () {
-    return view('admin/jadwalPakan/edit');
 });
 
 Route::get('/laporan', function () {
